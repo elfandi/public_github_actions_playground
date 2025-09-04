@@ -27,3 +27,5 @@ jobs:
     - name: echo for ${{ inputs.os }}/${{ matrix.arch }}
       run: |
         echo ${{ inputs.os }}${{ matrix.arch }}
+        apt-mark showmanual curl
+        apt rdepends --installed curl
