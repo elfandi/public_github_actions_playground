@@ -1,0 +1,43 @@
+on:
+  push:
+    branches: ["master", "tokio-*.x"]
+  pull_request:
+    branches: ["master", "tokio-*.x"]
+
+name: CI
+
+jobs:  
+  cross-test-with-parking_lot:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - target: i686-unknown-linux-gnu
+            os: ubuntu-latest
+            rustflags: --cfg tokio_taskdump
+          - target: armv5te-unknown-linux-gnueabi
+            os: ubuntu-latest
+          - target: armv7-unknown-linux-gnueabihf
+            os: ubuntu-24.04-arm
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-24.04-arm
+            rustflags: --cfg tokio_taskdump
+          - target: aarch64-pc-windows-msvc
+            os: windows-11-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.rust_stable }}
+          target: ${{ matrix.target }}
+
+      - name: Install cargo-nextest
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-nextest
+
+      - uses: taiki-e/setup-cross-toolchain-action@v1
+        with:
+          target: ${{ matrix.target }}
+          qemu: '7.2'
