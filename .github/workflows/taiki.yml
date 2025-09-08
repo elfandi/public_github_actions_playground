@@ -1,10 +1,6 @@
-on:
-  push:
-    branches: ["master", "tokio-*.x"]
-  pull_request:
-    branches: ["master", "tokio-*.x"]
+on: [push]
 
-name: CI
+name: taiki CI
 
 jobs:  
   cross-test-with-parking_lot:
