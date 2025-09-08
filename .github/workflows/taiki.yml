@@ -22,16 +22,6 @@ jobs:
             os: windows-11-arm
     steps:
       - uses: actions/checkout@v4
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: ${{ env.rust_stable }}
-          target: ${{ matrix.target }}
-
-      - name: Install cargo-nextest
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cargo-nextest
 
       - uses: taiki-e/setup-cross-toolchain-action@v1
         with:
