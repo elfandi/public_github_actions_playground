@@ -34,3 +34,8 @@ jobs:
     with:
       os: windows
       archs: "['386','amd64','arm64']"
+  build-windows-arm:
+    uses: ./.github/workflows/cross-arch-template.yaml
+    with:
+      os: windows-11-arm
+      archs: "['aarch64']"
