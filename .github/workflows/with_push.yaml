@@ -1,0 +1,16 @@
+name: coveralls
+
+on: [push]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          push: github.ref == 'refs/heads/main'
+          dotnet-version: '5.0.100'
